@@ -24,8 +24,8 @@ export class Server {
 
         new CheckService(
           fileSystemLogRepository,
-          () => console.log(`${ url } is ok`),
-          (error) => console.log(error),
+          () => console.log(`${ url } is ok`), // o undefined
+          (error) => console.log(error), // o undefined
         ).execute(url);
 
       }
