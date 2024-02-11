@@ -2,13 +2,16 @@ import { CheckService } from '../domain/use-cases/checks/check-service';
 import { CronService } from './cron/cron-service';
 import { FileSystemDataSource } from '../infrastructure/datasources/file-system.datasource';
 import { LogRepositoryImpl } from '../infrastructure/repositories/log.repository.impl';
-import { envs } from '../config/plugins/envs.plugin';
+// import { envs } from '../config/plugins/envs.plugin';
 import { EmailService } from './email/email.service';
+import { SendEmailLogs } from '../domain/use-cases/email/send-email-log';
 
 const fileSystemLogRepository = new LogRepositoryImpl(
   // new PostgreSQLDataSource()
   new FileSystemDataSource(),
 );
+
+const emailService = new EmailService();
 
 export class Server {
 
@@ -34,6 +37,14 @@ export class Server {
 
     // todo: Enviar logs a varios usuarios
     // emailService.sendEmailWithFileSystemLogs(
+    //   [ 'pruebasuser123@gmail.com', 'dev.company201@gmail.com' ]
+    // );
+
+    // todo: enviar varios correos con use cases
+    // new SendEmailLogs(
+    //   emailService,
+    //   fileSystemLogRepository,
+    // ).execute(
     //   [ 'pruebasuser123@gmail.com', 'dev.company201@gmail.com' ]
     // );
 
