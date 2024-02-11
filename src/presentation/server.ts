@@ -17,7 +17,9 @@ export class Server {
     console.log('Server started...');
 
     // Mandar correo electronico
-    const emailService = new EmailService();
+    // const emailService = new EmailService(
+    //   fileSystemLogRepository
+    // );
 
     // todo: Enviar logs a un usuario
     // emailService.sendEmail({
