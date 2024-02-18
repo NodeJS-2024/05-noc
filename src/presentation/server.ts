@@ -5,17 +5,20 @@ import { LogRepositoryImpl } from '../infrastructure/repositories/log.repository
 // import { envs } from '../config/plugins/envs.plugin';
 import { EmailService } from './email/email.service';
 import { SendEmailLogs } from '../domain/use-cases/email/send-email-log';
+import { MongoLogDataSource } from '../infrastructure/datasources/mongo-log.datasource';
+import { LogSeverityLevel } from '../domain/entities/log.entity';
 
-const fileSystemLogRepository = new LogRepositoryImpl(
+const logRepository = new LogRepositoryImpl(
   // new PostgreSQLDataSource()
   new FileSystemDataSource(),
+  // new MongoLogDataSource(),
 );
 
 const emailService = new EmailService();
 
 export class Server {
 
-  public static start() {
+  public static async start() {
 
     console.log('Server started...');
 
@@ -57,13 +60,17 @@ export class Server {
     //     const url = 'http://google.com';
 
     //     new CheckService(
-    //       fileSystemLogRepository,
+    //       logRepository,
     //       () => console.log(`${ url } is ok`), // o undefined
     //       (error) => console.log(error), // o undefined
     //     ).execute(url);
 
     //   }
     // );
+
+    // Obtener los logs por severidad
+    const logs = await logRepository.getLogs(LogSeverityLevel.low);
+    console.log(logs);
 
   }
 

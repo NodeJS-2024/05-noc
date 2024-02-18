@@ -31,6 +31,6 @@ async function main() {
   // console.log(logs);
 
 
-  // Server.start();
+  Server.start();
   // console.log(envs);
 }
