@@ -91,26 +91,26 @@ export class Server {
 
 
     // MULTIPLES SERVICIOS DE GUARDADO
-    CronService.createJob(
-      '*/5 * * * * *',
-      () => {
-        // const date = new Date();
-        // console.log('5 seconds', date);
+    // CronService.createJob(
+    //   '*/5 * * * * *',
+    //   () => {
+    //     // const date = new Date();
+    //     // console.log('5 seconds', date);
 
-        const url = 'http://google.com';
+    //     const url = 'http://google.com';
 
-        new CheckServiceMultiple(
-          [
-            fsLogRepository,
-            mongoLogRepository,
-            posgresLogRepository
-          ],
-          () => console.log(`${ url } is ok`), // o undefined
-          (error) => console.log(error), // o undefined
-        ).execute(url);
+    //     new CheckServiceMultiple(
+    //       [
+    //         fsLogRepository,
+    //         mongoLogRepository,
+    //         posgresLogRepository
+    //       ],
+    //       () => console.log(`${ url } is ok`), // o undefined
+    //       (error) => console.log(error), // o undefined
+    //     ).execute(url);
 
-      }
-    );
+    //   }
+    // );
 
   }
 
