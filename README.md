@@ -10,7 +10,11 @@ El objetivo es crear una serie de tareas usando Arquitectura Limpia con TypeScri
   ```
   docker compose up -d
   ```
-5. Ejecutar ```npm run dev```
+5. Ejecutar el comando de prisma para generar migraciones
+```
+  npx prisma migrate dev
+```
+6. Ejecutar ```npm run dev```
 
 # Node con TypeScript - TS-Node-dev (preferido)
 
