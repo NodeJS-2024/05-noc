@@ -8,12 +8,28 @@ import { SendEmailLogs } from '../domain/use-cases/email/send-email-log';
 import { MongoLogDataSource } from '../infrastructure/datasources/mongo-log.datasource';
 import { LogSeverityLevel } from '../domain/entities/log.entity';
 import { PostgresLogDataSource } from '../infrastructure/datasources/postgres-log-datasource';
+import { CheckServiceMultiple } from '../domain/use-cases/checks/check-service-multiple';
 
-const logRepository = new LogRepositoryImpl(
-  // new FileSystemDataSource(),
-  // new MongoLogDataSource(),
+// const logRepository = new LogRepositoryImpl(
+//   // new FileSystemDataSource(),
+//   // new MongoLogDataSource(),
+//   new PostgresLogDataSource()
+// );
+
+
+// Multiples servicios
+const fsLogRepository = new LogRepositoryImpl(
+  new FileSystemDataSource()
+);
+
+const mongoLogRepository = new LogRepositoryImpl(
+  new MongoLogDataSource()
+);
+
+const posgresLogRepository = new LogRepositoryImpl(
   new PostgresLogDataSource()
 );
+
 
 const emailService = new EmailService();
 
@@ -72,6 +88,29 @@ export class Server {
     // Obtener los logs por severidad
     // const logs = await logRepository.getLogs(LogSeverityLevel.low);
     // console.log(logs);
+
+
+    // MULTIPLES SERVICIOS DE GUARDADO
+    CronService.createJob(
+      '*/5 * * * * *',
+      () => {
+        // const date = new Date();
+        // console.log('5 seconds', date);
+
+        const url = 'http://google.com';
+
+        new CheckServiceMultiple(
+          [
+            fsLogRepository,
+            mongoLogRepository,
+            posgresLogRepository
+          ],
+          () => console.log(`${ url } is ok`), // o undefined
+          (error) => console.log(error), // o undefined
+        ).execute(url);
+
+      }
+    );
 
   }
 
