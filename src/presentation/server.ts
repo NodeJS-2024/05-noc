@@ -7,11 +7,12 @@ import { EmailService } from './email/email.service';
 import { SendEmailLogs } from '../domain/use-cases/email/send-email-log';
 import { MongoLogDataSource } from '../infrastructure/datasources/mongo-log.datasource';
 import { LogSeverityLevel } from '../domain/entities/log.entity';
+import { PostgresLogDataSource } from '../infrastructure/datasources/postgres-log-datasource';
 
 const logRepository = new LogRepositoryImpl(
-  // new PostgreSQLDataSource()
-  new FileSystemDataSource(),
+  // new FileSystemDataSource(),
   // new MongoLogDataSource(),
+  new PostgresLogDataSource()
 );
 
 const emailService = new EmailService();
@@ -69,8 +70,8 @@ export class Server {
     // );
 
     // Obtener los logs por severidad
-    const logs = await logRepository.getLogs(LogSeverityLevel.low);
-    console.log(logs);
+    // const logs = await logRepository.getLogs(LogSeverityLevel.low);
+    // console.log(logs);
 
   }
 
