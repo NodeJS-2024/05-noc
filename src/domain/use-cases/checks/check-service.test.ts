@@ -43,12 +43,4 @@ describe('CheckService useCase', () => {
     );
   });
   
-  test('should second', async () => {
-
-  });
-  
-  test('should third', async () => {
-
-  });
-  
 });
