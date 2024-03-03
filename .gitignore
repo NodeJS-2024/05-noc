@@ -12,3 +12,5 @@ postgres/
 
 mongo-test/
 posgres-test/
+
+coverage/
